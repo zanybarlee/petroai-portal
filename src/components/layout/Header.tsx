@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Bot } from "lucide-react";
+import { Bot, UserCircle2 } from "lucide-react";
 
 interface HeaderProps {
   title: string;
@@ -70,8 +70,8 @@ export function Header({ title, subtitle, className }: HeaderProps) {
           <Button size="icon" variant="outline" className="relative">
             <MessageSquare className="h-4 w-4" />
             <Avatar className="absolute -top-1 -right-1 h-4 w-4 border border-background">
-              <AvatarFallback className="bg-primary text-primary-foreground">
-                <Bot className="h-2 w-2" />
+              <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+                <UserCircle2 className="h-2 w-2 text-white" />
               </AvatarFallback>
             </Avatar>
           </Button>
