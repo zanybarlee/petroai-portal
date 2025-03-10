@@ -15,6 +15,7 @@ import KnowledgeBase from "./pages/KnowledgeBase";
 import Users from "./pages/Users";
 import Settings from "./pages/Settings";
 import Bunkering from "./pages/Bunkering";
+import Fleet from "./pages/Fleet";
 import { AppLayout } from "./components/layout/AppLayout";
 
 const queryClient = new QueryClient();
@@ -89,6 +90,14 @@ const App = () => (
               element={
                 <AppLayout title="Bunkering AI Automation" subtitle="Intelligent optimization of ship-to-ship refueling operations">
                   <Bunkering />
+                </AppLayout>
+              } 
+            />
+            <Route 
+              path="/fleet" 
+              element={
+                <AppLayout title="Fleet & Logistics Optimization" subtitle="AI-driven fleet management and logistics coordination">
+                  <Fleet />
                 </AppLayout>
               } 
             />

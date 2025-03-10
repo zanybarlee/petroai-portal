@@ -16,6 +16,7 @@ import {
   Users,
   Settings,
   Ship,
+  Truck,
 } from "lucide-react";
 
 interface SidebarNavigationProps {
@@ -88,6 +89,17 @@ export function NavigationItems({ isActive }: SidebarNavigationProps) {
           <Link to="/bunkering" className="flex items-center gap-2">
             <Ship className="h-5 w-5" /> 
             <span>Bunkering AI</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton 
+          asChild 
+          isActive={isActive("/fleet")}
+        >
+          <Link to="/fleet" className="flex items-center gap-2">
+            <Truck className="h-5 w-5" /> 
+            <span>Fleet & Logistics</span>
           </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
