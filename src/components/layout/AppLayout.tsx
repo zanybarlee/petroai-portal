@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { SidebarWrapper } from "./Sidebar";
 import { Header } from "./Header";
 import { PageTransition } from "../ui/transitions/PageTransition";
+import { FloatingChatbot } from "../chat/FloatingChatbot";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -18,6 +19,7 @@ export function AppLayout({ children, title, subtitle }: AppLayoutProps) {
         <main className="flex-1 p-6 lg:p-10">
           <PageTransition>{children}</PageTransition>
         </main>
+        <FloatingChatbot />
       </div>
     </SidebarWrapper>
   );
