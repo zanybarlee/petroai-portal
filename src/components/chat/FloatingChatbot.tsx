@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import { X, MaximizeIcon, MinimizeIcon, RotateCcw, MessageSquare, MoveIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -23,7 +22,6 @@ export function FloatingChatbot() {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const chatRef = useRef<HTMLDivElement>(null);
 
-  // Initialize the chatbot position to bottom-right corner when detached
   useEffect(() => {
     if (isDetached && chatRef.current) {
       const rect = chatRef.current.getBoundingClientRect();
@@ -82,7 +80,6 @@ export function FloatingChatbot() {
     setIsDragging(false);
   };
 
-  // Add event listeners for mouse movement and mouse up
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging) {
@@ -199,9 +196,11 @@ export function FloatingChatbot() {
             {message.role === 'user' ? (
               message.content
             ) : (
-              <ReactMarkdown className="prose prose-sm dark:prose-invert max-w-none">
-                {message.content}
-              </ReactMarkdown>
+              <div className="prose prose-sm dark:prose-invert max-w-none">
+                <ReactMarkdown>
+                  {message.content}
+                </ReactMarkdown>
+              </div>
             )}
           </div>
         ))}
