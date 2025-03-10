@@ -1,8 +1,7 @@
-
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MessageCircle, Users, Bell, LineChart, Brain, Bot, Database, Zap, RefreshCw } from "lucide-react";
+import { MessageCircle, Users, Bell, LineChart, Brain, Bot, Database, Zap, RefreshCw, FileText, Ship, Truck, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
