@@ -7,11 +7,13 @@ import CargoRosterSearch from "@/components/cargo-roster/CargoRosterSearch";
 import OperationalCargoRosterForm from "@/components/cargo-roster/OperationalCargoRosterForm";
 import OperationalCargoTransactionsList from "@/components/cargo-roster/OperationalCargoTransactionsList";
 import OperationalCargoRosterSearch from "@/components/cargo-roster/OperationalCargoRosterSearch";
+import FinancialCargoRosterSearch from "@/components/cargo-roster/FinancialCargoRosterSearch";
 
 export default function CargoRoster() {
   const [activeTab, setActiveTab] = useState("market");
   const [activeMarketTab, setActiveMarketTab] = useState("create");
   const [activeOperationalTab, setActiveOperationalTab] = useState("create");
+  const [activeFinancialTab, setActiveFinancialTab] = useState("search");
   
   return (
     <div className="space-y-6">
@@ -19,7 +21,7 @@ export default function CargoRoster() {
         <TabsList className="grid w-full grid-cols-3 mb-8">
           <TabsTrigger value="market">Market Cargo Roster</TabsTrigger>
           <TabsTrigger value="operational">Operational Cargo Roster</TabsTrigger>
-          <TabsTrigger value="finance" disabled>Finance Cargo Roster</TabsTrigger>
+          <TabsTrigger value="finance">Finance Cargo Roster</TabsTrigger>
         </TabsList>
         
         <TabsContent value="market" className="space-y-6">
@@ -66,10 +68,16 @@ export default function CargoRoster() {
           </Tabs>
         </TabsContent>
         
-        <TabsContent value="finance" className="space-y-4">
-          <div className="p-8 text-center border rounded-md bg-muted/20">
-            <p className="text-muted-foreground">Finance Cargo Roster functionality will be available soon.</p>
-          </div>
+        <TabsContent value="finance" className="space-y-6">
+          <Tabs defaultValue="search" onValueChange={setActiveFinancialTab} value={activeFinancialTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-1 mb-6">
+              <TabsTrigger value="search">Letters of Credit (LC) Transactions</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="search" className="space-y-4">
+              <FinancialCargoRosterSearch />
+            </TabsContent>
+          </Tabs>
         </TabsContent>
       </Tabs>
     </div>
