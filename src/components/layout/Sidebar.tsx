@@ -1,5 +1,5 @@
-
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 import {
   Sidebar as ShadcnSidebar,
   SidebarContent,
@@ -31,6 +31,7 @@ import { useLocation, Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 export function SidebarWrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -54,7 +55,17 @@ export function SidebarWrapper({ children }: { children: React.ReactNode }) {
 
 function KcSidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const isActive = (path: string) => location.pathname === path;
+
+  const handleSignOut = () => {
+    toast({
+      title: "Signing out...",
+      description: "You have been signed out successfully.",
+    });
+    navigate("/");
+  };
 
   return (
     <ShadcnSidebar className="border-r">
@@ -174,13 +185,18 @@ function KcSidebar() {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" className="ml-auto">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="ml-auto"
+                      onClick={handleSignOut}
+                    >
                       <LogOut className="h-4 w-4" />
-                      <span className="sr-only">Log out</span>
+                      <span className="sr-only">Sign out</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Log out</p>
+                    <p>Sign out</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
