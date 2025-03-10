@@ -68,17 +68,48 @@ export function useFinancialSearch() {
   };
 
   const handleSelectAllColumns = () => {
-    const allSelected = Object.fromEntries(
-      Object.keys(selectedColumns).map((key) => [key, true])
-    ) as SelectedLCColumns;
+    // Create a new object with all properties set to true
+    const allSelected: SelectedLCColumns = {
+      id: true,
+      transactionId: true,
+      lcIssuingDate: true,
+      lcType: true,
+      lcNumber: true,
+      lcCredit: true,
+      lcExpiryDate: true,
+      lcSellStatus: true,
+      lcSellerBank: true,
+      contractParty: true,
+      buyerLcDate: true,
+      buyerLcNumber: true,
+      buyerLcIssuingBank: true,
+      dueDateWithBuyer: true,
+      lcAdvisingBank: true,
+      status: true,
+    };
     setSelectedColumns(allSelected);
   };
 
   const handleUnselectAllColumns = () => {
     // Keep at least the ID column selected
-    const allUnselected = Object.fromEntries(
-      Object.keys(selectedColumns).map((key) => [key, key === "id"])
-    ) as SelectedLCColumns;
+    const allUnselected: SelectedLCColumns = {
+      id: true,
+      transactionId: false,
+      lcIssuingDate: false,
+      lcType: false,
+      lcNumber: false,
+      lcCredit: false,
+      lcExpiryDate: false,
+      lcSellStatus: false,
+      lcSellerBank: false,
+      contractParty: false,
+      buyerLcDate: false,
+      buyerLcNumber: false,
+      buyerLcIssuingBank: false,
+      dueDateWithBuyer: false,
+      lcAdvisingBank: false,
+      status: false,
+    };
     setSelectedColumns(allUnselected);
   };
 
