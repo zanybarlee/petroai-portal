@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect } from 'react';
-import { Message, ChatPosition, StarterPrompt } from './types';
+import { Message, ChatPosition, StarterPrompt, VoicebotState } from './types';
 import { query } from '@/lib/chatbot';
 
 export function useChatbot() {
@@ -13,6 +13,16 @@ export function useChatbot() {
   const [dragStart, setDragStart] = useState<ChatPosition>({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
+
+  // Voicebot state
+  const [voicebot, setVoicebot] = useState<VoicebotState>({
+    isOpen: false,
+    isDetached: false,
+    position: { x: 0, y: 0 }
+  });
+  const [voicebotIsDragging, setVoicebotIsDragging] = useState(false);
+  const [voicebotDragStart, setVoicebotDragStart] = useState<ChatPosition>({ x: 0, y: 0 });
+  const voicebotRef = useRef<HTMLDivElement>(null);
 
   // Starter prompts
   const starterPrompts: StarterPrompt[] = [
@@ -78,6 +88,19 @@ export function useChatbot() {
     }
   }, [isDetached]);
 
+  useEffect(() => {
+    if (voicebot.isDetached && voicebotRef.current) {
+      const rect = voicebotRef.current.getBoundingClientRect();
+      setVoicebot(prev => ({
+        ...prev,
+        position: {
+          x: window.innerWidth - rect.width - 96, // Position to the left of chat
+          y: window.innerHeight - rect.height - 16,
+        }
+      }));
+    }
+  }, [voicebot.isDetached]);
+
   const sendMessage = async (text: string) => {
     if (!text.trim()) return;
 
@@ -131,6 +154,45 @@ export function useChatbot() {
     setIsDragging(false);
   };
 
+  // Voicebot handlers
+  const toggleVoicebot = () => {
+    setVoicebot(prev => ({
+      ...prev,
+      isOpen: !prev.isOpen
+    }));
+  };
+
+  const handleVoicebotDetach = (isDetached: boolean) => {
+    setVoicebot(prev => ({
+      ...prev,
+      isDetached
+    }));
+  };
+
+  const handleVoicebotDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!voicebot.isDetached) return;
+    setVoicebotIsDragging(true);
+    setVoicebotDragStart({
+      x: e.clientX - voicebot.position.x,
+      y: e.clientY - voicebot.position.y
+    });
+  };
+
+  const handleVoicebotDragMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!voicebotIsDragging) return;
+    setVoicebot(prev => ({
+      ...prev,
+      position: {
+        x: e.clientX - voicebotDragStart.x,
+        y: e.clientY - voicebotDragStart.y
+      }
+    }));
+  };
+
+  const handleVoicebotDragEnd = () => {
+    setVoicebotIsDragging(false);
+  };
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging) {
@@ -139,15 +201,29 @@ export function useChatbot() {
           y: e.clientY - dragStart.y
         });
       }
+      
+      if (voicebotIsDragging) {
+        setVoicebot(prev => ({
+          ...prev,
+          position: {
+            x: e.clientX - voicebotDragStart.x,
+            y: e.clientY - voicebotDragStart.y
+          }
+        }));
+      }
     };
     
     const handleMouseUp = () => {
       if (isDragging) {
         setIsDragging(false);
       }
+      
+      if (voicebotIsDragging) {
+        setVoicebotIsDragging(false);
+      }
     };
 
-    if (isDragging) {
+    if (isDragging || voicebotIsDragging) {
       window.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('mouseup', handleMouseUp);
     }
@@ -156,7 +232,7 @@ export function useChatbot() {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, dragStart]);
+  }, [isDragging, dragStart, voicebotIsDragging, voicebotDragStart]);
 
   return {
     isOpen,
@@ -177,6 +253,15 @@ export function useChatbot() {
     handleDragEnd,
     starterPrompts,
     getFollowUpPrompts,
-    handlePromptClick
+    handlePromptClick,
+    // Voicebot related
+    voicebot,
+    voicebotRef,
+    toggleVoicebot,
+    handleVoicebotDetach,
+    handleVoicebotDragStart,
+    handleVoicebotDragMove,
+    handleVoicebotDragEnd,
+    voicebotIsDragging
   };
 }

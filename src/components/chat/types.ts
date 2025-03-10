@@ -13,3 +13,9 @@ export type ChatPosition = {
   x: number;
   y: number;
 };
+
+export type VoicebotState = {
+  isOpen: boolean;
+  isDetached: boolean;
+  position: ChatPosition;
+};
