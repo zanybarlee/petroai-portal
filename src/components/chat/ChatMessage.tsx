@@ -1,9 +1,10 @@
 
 import ReactMarkdown from 'react-markdown';
 import { cn } from '@/lib/utils';
-import { Message } from './types';
+import { Message, StarterPrompt } from './types';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Bot, UserCircle2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface ChatMessageProps {
   message: Message;
@@ -45,6 +46,34 @@ export function ChatMessage({ message }: ChatMessageProps) {
             </ReactMarkdown>
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+interface PromptButtonsProps {
+  prompts: StarterPrompt[];
+  label?: string;
+}
+
+export function PromptButtons({ prompts, label }: PromptButtonsProps) {
+  if (prompts.length === 0) return null;
+  
+  return (
+    <div className="p-3 space-y-2">
+      {label && <p className="text-xs text-muted-foreground">{label}</p>}
+      <div className="flex flex-wrap gap-2">
+        {prompts.map((prompt, index) => (
+          <Button 
+            key={index} 
+            variant="outline" 
+            size="sm" 
+            onClick={prompt.action}
+            className="text-xs py-1 h-auto whitespace-normal text-left justify-start"
+          >
+            {prompt.text}
+          </Button>
+        ))}
       </div>
     </div>
   );

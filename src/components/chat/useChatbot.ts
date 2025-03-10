@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect } from 'react';
-import { Message, ChatPosition } from './types';
+import { Message, ChatPosition, StarterPrompt } from './types';
 import { query } from '@/lib/chatbot';
 
 export function useChatbot() {
@@ -14,6 +14,60 @@ export function useChatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
 
+  // Starter prompts
+  const starterPrompts: StarterPrompt[] = [
+    {
+      text: "Ask me anything about New KC Trading",
+      action: () => handlePromptClick("What is New KC Trading?")
+    },
+    {
+      text: "What services do you offer?",
+      action: () => handlePromptClick("What services does New KC Trading offer?")
+    },
+    {
+      text: "Tell me about your trading platform",
+      action: () => handlePromptClick("Tell me about your trading platform features")
+    },
+    {
+      text: "How can I optimize my fleet operations?",
+      action: () => handlePromptClick("How can I optimize my fleet operations with your platform?")
+    }
+  ];
+
+  // Follow-up prompts based on conversation state
+  const getFollowUpPrompts = (): StarterPrompt[] => {
+    // If no messages yet, return empty array (starter prompts will be shown)
+    if (messages.length === 0) return [];
+
+    // Get the last message to determine context
+    const lastMessage = messages[messages.length - 1];
+    
+    // Only show follow-ups after assistant responses
+    if (lastMessage.role !== 'assistant') return [];
+    
+    // Basic follow-up prompts (could be made more dynamic/contextual)
+    return [
+      {
+        text: "Tell me more about bunkering",
+        action: () => handlePromptClick("Tell me more about bunkering operations")
+      },
+      {
+        text: "How does the analytics dashboard work?",
+        action: () => handlePromptClick("How does the analytics dashboard work?")
+      },
+      {
+        text: "What security features do you have?",
+        action: () => handlePromptClick("What security features does your platform have?")
+      }
+    ];
+  };
+
+  const handlePromptClick = (promptText: string) => {
+    setInputValue(promptText);
+    // Optional: Auto-send the prompt
+    sendMessage(promptText);
+  };
+
   useEffect(() => {
     if (isDetached && chatRef.current) {
       const rect = chatRef.current.getBoundingClientRect();
@@ -24,17 +78,17 @@ export function useChatbot() {
     }
   }, [isDetached]);
 
-  const handleSendMessage = async () => {
-    if (!inputValue.trim()) return;
+  const sendMessage = async (text: string) => {
+    if (!text.trim()) return;
 
-    const userMessage: Message = { role: 'user', content: inputValue };
+    const userMessage: Message = { role: 'user', content: text };
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
     setIsLoading(true);
 
     try {
       const response = await query({
-        question: inputValue,
+        question: text,
         overrideConfig: { sessionId: 'role' }
       });
 
@@ -49,6 +103,8 @@ export function useChatbot() {
       setIsLoading(false);
     }
   };
+
+  const handleSendMessage = () => sendMessage(inputValue);
 
   const handleClearChat = () => {
     setMessages([]);
@@ -118,6 +174,9 @@ export function useChatbot() {
     handleClearChat,
     handleDragStart,
     handleDragMove,
-    handleDragEnd
+    handleDragEnd,
+    starterPrompts,
+    getFollowUpPrompts,
+    handlePromptClick
   };
 }
