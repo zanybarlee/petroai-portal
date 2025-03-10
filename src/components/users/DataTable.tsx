@@ -7,7 +7,7 @@ import {
   getPaginationRowModel,
   SortingState,
   getSortedRowModel,
-} from "@tanstack/react-query";
+} from "@tanstack/react-table";
 import {
   Table,
   TableBody,

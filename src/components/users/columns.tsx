@@ -1,5 +1,5 @@
 
-import { ColumnDef } from "@tanstack/react-query";
+import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";

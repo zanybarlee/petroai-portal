@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AreaChart, LineChart, BarChart } from "@/components/ui/chart";
+import { AreaChart, LineChart, BarChart, Area, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export function TradeGraph() {
@@ -61,10 +61,26 @@ export function TradeGraph() {
             <TabsTrigger value="allocation">Allocation</TabsTrigger>
           </TabsList>
           <TabsContent value="performance" className="h-[300px]">
-            <AreaChart data={areaChartData} />
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={areaChartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="total" stroke="#8884d8" fill="#8884d8" />
+              </AreaChart>
+            </ResponsiveContainer>
           </TabsContent>
           <TabsContent value="allocation" className="h-[300px]">
-            <BarChart data={barChartData} />
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={barChartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="total" fill="#82ca9d" />
+              </BarChart>
+            </ResponsiveContainer>
           </TabsContent>
         </Tabs>
       </CardContent>
