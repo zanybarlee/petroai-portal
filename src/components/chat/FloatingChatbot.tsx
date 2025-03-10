@@ -1,6 +1,6 @@
 
-import { useState } from 'react';
-import { X, MaximizeIcon, MinimizeIcon, RotateCcw, MessageSquare } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { X, MaximizeIcon, MinimizeIcon, RotateCcw, MessageSquare, MoveIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -17,6 +17,21 @@ export function FloatingChatbot() {
   const [isDetached, setIsDetached] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  // Initialize the chatbot position to bottom-right corner when detached
+  useEffect(() => {
+    if (isDetached && chatRef.current) {
+      const rect = chatRef.current.getBoundingClientRect();
+      setPosition({
+        x: window.innerWidth - rect.width - 16,
+        y: window.innerHeight - rect.height - 16,
+      });
+    }
+  }, [isDetached]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -45,6 +60,55 @@ export function FloatingChatbot() {
     setMessages([]);
   };
 
+  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDetached) return;
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
+    });
+  };
+
+  const handleDragMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    setPosition({
+      x: e.clientX - dragStart.x,
+      y: e.clientY - dragStart.y
+    });
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+  };
+
+  // Add event listeners for mouse movement and mouse up
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isDragging) {
+        setPosition({
+          x: e.clientX - dragStart.x,
+          y: e.clientY - dragStart.y
+        });
+      }
+    };
+    
+    const handleMouseUp = () => {
+      if (isDragging) {
+        setIsDragging(false);
+      }
+    };
+
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragStart]);
+
   if (!isOpen) {
     return (
       <Button
@@ -58,14 +122,36 @@ export function FloatingChatbot() {
 
   return (
     <Card
+      ref={chatRef}
       className={cn(
-        "fixed bottom-4 right-4 flex flex-col w-80 h-96 shadow-xl transition-all",
-        isDetached && "resize overflow-auto"
+        "fixed flex flex-col w-80 h-96 shadow-xl transition-all",
+        isDetached ? "resize overflow-auto" : "bottom-4 right-4"
       )}
-      style={{ zIndex: 1000 }}
+      style={
+        isDetached 
+          ? { 
+              zIndex: 1000, 
+              position: 'fixed', 
+              top: `${position.y}px`, 
+              left: `${position.x}px`,
+              cursor: isDragging ? 'grabbing' : 'default'
+            }
+          : { zIndex: 1000 }
+      }
     >
-      <div className="flex items-center justify-between p-3 border-b">
+      <div 
+        className={cn(
+          "flex items-center justify-between p-3 border-b",
+          isDetached && "cursor-grab"
+        )}
+        onMouseDown={handleDragStart}
+        onMouseMove={handleDragMove}
+        onMouseUp={handleDragEnd}
+      >
         <h3 className="font-semibold">KC Trading Chatbot</h3>
+        {isDetached && (
+          <MoveIcon className="h-4 w-4 mr-2 text-muted-foreground" />
+        )}
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
