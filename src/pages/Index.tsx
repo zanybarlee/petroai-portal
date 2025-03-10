@@ -8,17 +8,97 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { 
+  Shield, 
+  UserCircle, 
+  ChartBarIcon, 
+  Truck, 
+  ScrollText, 
+  HeadphonesIcon,
+  LogIn,
+  UserPlus,
+  ArrowRight
+} from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+// Define role types to match what's in the columns.tsx
+type UserRole = 
+  | "Marketing"
+  | "Operations"
+  | "Financial"
+  | "Executive"
+  | "Administrator"
+  | "Customer Support"
+  | "IT Development"
+  | "Compliance";
+
+// Example users with roles to showcase in the landing page
+const exampleUsers = [
+  {
+    name: "Sarah Chen",
+    role: "Administrator",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=sarah"
+  },
+  {
+    name: "James Rodriguez",
+    role: "Marketing",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=james"
+  },
+  {
+    name: "Aisha Patel",
+    role: "Financial",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=aisha"
+  },
+  {
+    name: "Michael Chang",
+    role: "Executive",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=michael"
+  },
+  {
+    name: "Linda Kumar",
+    role: "Operations",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=linda"
+  }
+];
+
+// Function to get appropriate icon based on role
+const getRoleIcon = (role: string) => {
+  switch(role) {
+    case "Administrator": 
+      return <Shield className="h-4 w-4 text-red-500" />;
+    case "Executive": 
+      return <UserCircle className="h-4 w-4 text-purple-500" />;
+    case "Marketing": 
+      return <ChartBarIcon className="h-4 w-4 text-blue-500" />;
+    case "Operations": 
+      return <Truck className="h-4 w-4 text-green-500" />;
+    case "Financial": 
+      return <ScrollText className="h-4 w-4 text-yellow-500" />;
+    case "Customer Support": 
+      return <HeadphonesIcon className="h-4 w-4 text-pink-500" />;
+    default:
+      return <UserCircle className="h-4 w-4 text-blue-500" />;
+  }
+};
 
 export default function Index() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [selectedRole, setSelectedRole] = useState<UserRole>("Administrator");
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    
     // Simulate auth delay
     setTimeout(() => {
       setIsLoading(false);
+      toast({
+        title: "Welcome back!",
+        description: `You've signed in as a ${selectedRole}.`,
+      });
       navigate("/dashboard");
     }, 1500);
   };
@@ -57,7 +137,7 @@ export default function Index() {
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center px-6 py-12 relative z-10">
+      <main className="flex-1 flex items-center justify-center px-6 py-6 relative z-10">
         <div className="container max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -71,6 +151,37 @@ export default function Index() {
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
               An AI-enhanced trading platform designed to automate and optimize petroleum trading operations.
             </p>
+            
+            {/* Role-based user showcase */}
+            <div className="mt-8 mb-10">
+              <h3 className="text-xl font-medium mb-4 text-center lg:text-left">Role-Based Access for Your Team</h3>
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                {exampleUsers.map((user, index) => (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3 + (index * 0.1) }}
+                    whileHover={{ y: -5 }}
+                    className="flex flex-col items-center"
+                  >
+                    <div className="relative">
+                      <Avatar className="h-14 w-14 border-2 border-white shadow-md">
+                        <AvatarImage src={user.avatarUrl} />
+                        <AvatarFallback className="bg-primary/10">
+                          {user.name.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="absolute -bottom-1 -right-1 bg-white dark:bg-gray-800 rounded-full p-1 shadow-sm">
+                        {getRoleIcon(user.role)}
+                      </div>
+                    </div>
+                    <span className="text-sm font-medium mt-2">{user.role}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button size="lg" className="rounded-full">
                 Learn More
@@ -87,7 +198,7 @@ export default function Index() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="w-full max-w-md mx-auto"
           >
-            <Card className="glass-card">
+            <Card className="glass-card border border-gray-200 dark:border-gray-800 shadow-xl">
               <CardHeader>
                 <CardTitle>Welcome Back</CardTitle>
                 <CardDescription>
@@ -97,8 +208,14 @@ export default function Index() {
               <CardContent>
                 <Tabs defaultValue="login" className="w-full">
                   <TabsList className="grid w-full grid-cols-2 mb-6">
-                    <TabsTrigger value="login">Login</TabsTrigger>
-                    <TabsTrigger value="register">Register</TabsTrigger>
+                    <TabsTrigger value="login" className="flex items-center gap-1.5">
+                      <LogIn className="h-4 w-4" />
+                      Login
+                    </TabsTrigger>
+                    <TabsTrigger value="register" className="flex items-center gap-1.5">
+                      <UserPlus className="h-4 w-4" />
+                      Register
+                    </TabsTrigger>
                   </TabsList>
                   <TabsContent value="login">
                     <form onSubmit={handleSubmit} className="space-y-4">
@@ -115,6 +232,26 @@ export default function Index() {
                         </div>
                         <Input id="password" required type="password" />
                       </div>
+                      
+                      {/* Role selection */}
+                      <div className="space-y-2">
+                        <Label htmlFor="role">Sign in as</Label>
+                        <select 
+                          id="role" 
+                          className="w-full h-10 rounded-md border border-input bg-background px-3 py-2"
+                          value={selectedRole}
+                          onChange={(e) => setSelectedRole(e.target.value as UserRole)}
+                        >
+                          <option value="Administrator">Administrator</option>
+                          <option value="Executive">Executive</option>
+                          <option value="Marketing">Marketing</option>
+                          <option value="Operations">Operations</option>
+                          <option value="Financial">Financial</option>
+                          <option value="Customer Support">Customer Support</option>
+                          <option value="Compliance">Compliance</option>
+                        </select>
+                      </div>
+                      
                       <div className="flex items-center space-x-2">
                         <Checkbox id="remember" />
                         <label
@@ -124,8 +261,9 @@ export default function Index() {
                           Remember me
                         </label>
                       </div>
-                      <Button type="submit" className="w-full" disabled={isLoading}>
+                      <Button type="submit" className="w-full flex items-center justify-center gap-2" disabled={isLoading}>
                         {isLoading ? "Signing in..." : "Sign In"}
+                        {!isLoading && <ArrowRight className="h-4 w-4" />}
                       </Button>
                     </form>
                   </TabsContent>
@@ -153,6 +291,19 @@ export default function Index() {
                         <Label htmlFor="confirmPassword">Confirm Password</Label>
                         <Input id="confirmPassword" required type="password" />
                       </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="registerRole">Register as</Label>
+                        <select 
+                          id="registerRole" 
+                          className="w-full h-10 rounded-md border border-input bg-background px-3 py-2"
+                        >
+                          <option value="Operations">Operations</option>
+                          <option value="Marketing">Marketing</option>
+                          <option value="Financial">Financial</option>
+                          <option value="Customer Support">Customer Support</option>
+                          <option value="Compliance">Compliance</option>
+                        </select>
+                      </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox id="terms" />
                         <label
@@ -162,7 +313,10 @@ export default function Index() {
                           I agree to the terms and conditions
                         </label>
                       </div>
-                      <Button className="w-full">Create Account</Button>
+                      <Button className="w-full flex items-center justify-center gap-2">
+                        Create Account
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
                     </div>
                   </TabsContent>
                 </Tabs>
