@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +18,7 @@ import Bunkering from "./pages/Bunkering";
 import Fleet from "./pages/Fleet";
 import { AppLayout } from "./components/layout/AppLayout";
 import CustomerEngagement from "./pages/CustomerEngagement";
+import SupplierRelationship from "./pages/SupplierRelationship";
 
 const queryClient = new QueryClient();
 
@@ -106,6 +108,14 @@ const App = () => (
               element={
                 <AppLayout title="Customer Engagement AI" subtitle="AI-powered customer support and engagement">
                   <CustomerEngagement />
+                </AppLayout>
+              } 
+            />
+            <Route 
+              path="/supplier-relationship" 
+              element={
+                <AppLayout title="Supplier Relationship AI" subtitle="AI-driven supplier management and contract optimization">
+                  <SupplierRelationship />
                 </AppLayout>
               } 
             />

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import {
@@ -17,6 +18,7 @@ import {
   Ship,
   Truck,
   MessageSquare,
+  Handshake,
 } from "lucide-react";
 
 interface SidebarNavigationProps {
@@ -111,6 +113,17 @@ export function NavigationItems({ isActive }: SidebarNavigationProps) {
           <Link to="/customer-engagement" className="flex items-center gap-2">
             <MessageSquare className="h-5 w-5" /> 
             <span>Customer Engagement AI</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton 
+          asChild 
+          isActive={isActive("/supplier-relationship")}
+        >
+          <Link to="/supplier-relationship" className="flex items-center gap-2">
+            <Handshake className="h-5 w-5" /> 
+            <span>Supplier Relationship AI</span>
           </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
