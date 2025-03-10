@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -167,7 +166,7 @@ export default function Bunkering() {
                         <div className="space-y-2">
                           <div className="flex justify-between text-sm">
                             <span className="text-muted-foreground">Visibility</span>
-                            <span className="font-medium">Good (>5nm)</span>
+                            <span className="font-medium">Good ({'>'}5nm)</span>
                           </div>
                           <div className="flex justify-between text-sm">
                             <span className="text-muted-foreground">Port Traffic</span>
@@ -878,4 +877,3 @@ export default function Bunkering() {
     </div>
   );
 }
-
