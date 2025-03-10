@@ -13,7 +13,8 @@ const initialUsers: User[] = [
     role: "Administrator",
     department: "IT & Development",
     status: "Active",
-    lastActive: "Just now"
+    lastActive: "Just now",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=sarah"
   },
   {
     id: "2",
@@ -22,7 +23,8 @@ const initialUsers: User[] = [
     role: "Marketing",
     department: "Trading & Marketing",
     status: "Active",
-    lastActive: "1 hour ago"
+    lastActive: "1 hour ago",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=james"
   },
   {
     id: "3",
@@ -31,7 +33,8 @@ const initialUsers: User[] = [
     role: "Financial",
     department: "Financial Teams",
     status: "Active",
-    lastActive: "30 minutes ago"
+    lastActive: "30 minutes ago",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=aisha"
   },
   {
     id: "4",
@@ -40,7 +43,8 @@ const initialUsers: User[] = [
     role: "Executive",
     department: "Senior Management",
     status: "Active",
-    lastActive: "2 hours ago"
+    lastActive: "2 hours ago",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=michael"
   },
   {
     id: "5",
@@ -49,7 +53,8 @@ const initialUsers: User[] = [
     role: "Operations",
     department: "Fleet Management",
     status: "Active",
-    lastActive: "15 minutes ago"
+    lastActive: "15 minutes ago",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=linda"
   },
   {
     id: "6",
@@ -58,7 +63,8 @@ const initialUsers: User[] = [
     role: "Compliance",
     department: "Compliance & Regulatory",
     status: "Active",
-    lastActive: "1 day ago"
+    lastActive: "1 day ago",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=david"
   },
   {
     id: "7",
@@ -67,7 +73,8 @@ const initialUsers: User[] = [
     role: "Customer Support",
     department: "Customer Support",
     status: "Active",
-    lastActive: "5 minutes ago"
+    lastActive: "5 minutes ago",
+    avatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=sofia"
   }
 ];
 

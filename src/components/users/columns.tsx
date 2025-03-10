@@ -2,7 +2,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Shield, UserCircle, Users } from "lucide-react";
+import { MoreHorizontal, Shield, UserCircle, Users, Briefcase, ChartBarIcon, ScrollText, Truck, HeadphonesIcon } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,16 +31,30 @@ export type User = {
   department: string;
   status: "Active" | "Inactive";
   lastActive: string;
+  avatarUrl?: string;
 }
 
 export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: "Name",
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
+    cell: ({ row }) => {
+      const user = row.original;
+      return (
+        <div className="flex items-center gap-3">
+          <Avatar>
+            <AvatarImage src={user.avatarUrl} />
+            <AvatarFallback className="bg-primary/10">
+              {user.name.split(' ').map(n => n[0]).join('')}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="font-medium">{user.name}</span>
+            <span className="text-xs text-muted-foreground">{user.email}</span>
+          </div>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "role",
@@ -50,6 +65,10 @@ export const columns: ColumnDef<User>[] = [
         <div className="flex items-center gap-2">
           {role === "Administrator" ? <Shield className="h-4 w-4 text-red-500" /> :
            role === "Executive" ? <UserCircle className="h-4 w-4 text-purple-500" /> :
+           role === "Marketing" ? <ChartBarIcon className="h-4 w-4 text-blue-500" /> :
+           role === "Operations" ? <Truck className="h-4 w-4 text-green-500" /> :
+           role === "Financial" ? <ScrollText className="h-4 w-4 text-yellow-500" /> :
+           role === "Customer Support" ? <HeadphonesIcon className="h-4 w-4 text-pink-500" /> :
            <Users className="h-4 w-4 text-blue-500" />}
           <span>{role}</span>
         </div>
