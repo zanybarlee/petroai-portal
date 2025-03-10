@@ -1,11 +1,11 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/users/DataTable";
-import { columns } from "@/components/users/columns";
+import { columns, User } from "@/components/users/columns";
 import { useState } from "react";
 
 // Sample user data
-const initialUsers = [
+const initialUsers: User[] = [
   {
     id: "1",
     name: "John Doe",
@@ -49,7 +49,7 @@ const initialUsers = [
 ];
 
 export default function Users() {
-  const [users] = useState(initialUsers);
+  const [users] = useState<User[]>(initialUsers);
 
   return (
     <div className="space-y-6">
