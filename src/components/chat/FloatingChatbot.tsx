@@ -19,6 +19,7 @@ export function FloatingChatbot() {
     setInputValue,
     position,
     isDragging,
+    isLoading,
     chatRef,
     handleSendMessage,
     handleClearChat,
@@ -67,7 +68,7 @@ export function FloatingChatbot() {
         onDragEnd={handleDragEnd}
       />
 
-      <ChatMessages messages={messages} />
+      <ChatMessages messages={messages} isLoading={isLoading} />
 
       <ChatInput 
         value={inputValue}

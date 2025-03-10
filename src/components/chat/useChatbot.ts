@@ -11,6 +11,7 @@ export function useChatbot() {
   const [position, setPosition] = useState<ChatPosition>({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState<ChatPosition>({ x: 0, y: 0 });
+  const [isLoading, setIsLoading] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ export function useChatbot() {
     const userMessage: Message = { role: 'user', content: inputValue };
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
+    setIsLoading(true);
 
     try {
       const response = await query({
@@ -43,6 +45,8 @@ export function useChatbot() {
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -108,6 +112,7 @@ export function useChatbot() {
     setInputValue,
     position,
     isDragging,
+    isLoading,
     chatRef,
     handleSendMessage,
     handleClearChat,
