@@ -19,6 +19,7 @@ import {
   Truck,
   MessageSquare,
   Handshake,
+  Package,
 } from "lucide-react";
 
 interface SidebarNavigationProps {
@@ -58,6 +59,17 @@ export function NavigationItems({ isActive }: SidebarNavigationProps) {
           <Link to="/fleet" className="flex items-center gap-2">
             <Truck className="h-5 w-5" /> 
             <span>Fleet & Logistics</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton 
+          asChild 
+          isActive={isActive("/cargo-roster")}
+        >
+          <Link to="/cargo-roster" className="flex items-center gap-2">
+            <Package className="h-5 w-5" /> 
+            <span>Cargo Roster</span>
           </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>

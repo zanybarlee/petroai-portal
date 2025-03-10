@@ -5,7 +5,7 @@ import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { RecentTrades } from "@/components/dashboard/RecentTrades";
 import { MarketAlerts } from "@/components/dashboard/MarketAlerts";
 import { AIAssistant } from "@/components/dashboard/AIAssistant";
-import { Ship, Truck, MessageSquare, Handshake } from "lucide-react";
+import { Ship, Truck, MessageSquare, Handshake, Package } from "lucide-react";
 import { DashboardCard } from "@/components/ui/dashboard/DashboardCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -31,6 +31,15 @@ export default function Dashboard() {
       decorationColor: "#8b5cf6"
     },
     {
+      title: "Cargo Roster",
+      description: "Cargo transaction management",
+      icon: <Package className="h-5 w-5" />,
+      metric: "56",
+      metricLabel: "Active transactions",
+      link: "/cargo-roster",
+      decorationColor: "#f59e0b"
+    },
+    {
       title: "Customer Engagement",
       description: "AI-powered customer support",
       icon: <MessageSquare className="h-5 w-5" />,
@@ -54,7 +63,7 @@ export default function Dashboard() {
     <div className="grid gap-6">
       <StatCards />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
         {moduleCards.map((card, index) => (
           <DashboardCard
             key={index}

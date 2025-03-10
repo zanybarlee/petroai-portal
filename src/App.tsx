@@ -19,6 +19,7 @@ import Fleet from "./pages/Fleet";
 import { AppLayout } from "./components/layout/AppLayout";
 import CustomerEngagement from "./pages/CustomerEngagement";
 import SupplierRelationship from "./pages/SupplierRelationship";
+import CargoRoster from "./pages/CargoRoster";
 
 const queryClient = new QueryClient();
 
@@ -100,6 +101,14 @@ const App = () => (
               element={
                 <AppLayout title="Fleet & Logistics Optimization" subtitle="AI-driven fleet management and logistics coordination">
                   <Fleet />
+                </AppLayout>
+              } 
+            />
+            <Route 
+              path="/cargo-roster" 
+              element={
+                <AppLayout title="Cargo Roster" subtitle="Manage cargo transactions and shipment schedules">
+                  <CargoRoster />
                 </AppLayout>
               } 
             />
