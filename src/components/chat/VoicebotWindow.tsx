@@ -89,6 +89,7 @@ export const VoicebotWindow = forwardRef<HTMLDivElement, VoicebotWindowProps>(
             src="http://localhost:3005"
             className="w-full h-full border-none"
             title="KC Trading Voicebot"
+            allow="microphone"
           />
         </div>
       </Card>
