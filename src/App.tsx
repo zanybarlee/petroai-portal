@@ -14,6 +14,7 @@ import Analytics from "./pages/Analytics";
 import KnowledgeBase from "./pages/KnowledgeBase";
 import Users from "./pages/Users";
 import Settings from "./pages/Settings";
+import Bunkering from "./pages/Bunkering";
 import { AppLayout } from "./components/layout/AppLayout";
 
 const queryClient = new QueryClient();
@@ -80,6 +81,14 @@ const App = () => (
               element={
                 <AppLayout title="Settings" subtitle="Configure your account and preferences">
                   <Settings />
+                </AppLayout>
+              } 
+            />
+            <Route 
+              path="/bunkering" 
+              element={
+                <AppLayout title="Bunkering AI Automation" subtitle="Intelligent optimization of ship-to-ship refueling operations">
+                  <Bunkering />
                 </AppLayout>
               } 
             />

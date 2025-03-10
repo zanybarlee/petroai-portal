@@ -15,6 +15,7 @@ import {
   Repeat,
   Users,
   Settings,
+  Ship,
 } from "lucide-react";
 
 interface SidebarNavigationProps {
@@ -76,6 +77,17 @@ export function NavigationItems({ isActive }: SidebarNavigationProps) {
           <Link to="/knowledge-base" className="flex items-center gap-2">
             <Book className="h-5 w-5" /> 
             <span>Knowledge Base</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton 
+          asChild 
+          isActive={isActive("/bunkering")}
+        >
+          <Link to="/bunkering" className="flex items-center gap-2">
+            <Ship className="h-5 w-5" /> 
+            <span>Bunkering AI</span>
           </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
