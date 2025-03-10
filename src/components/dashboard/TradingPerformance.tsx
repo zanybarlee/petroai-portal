@@ -1,5 +1,5 @@
 
-import { LineChart, ResponsiveContainer } from 'recharts';
+import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { ChartCard } from "@/components/ui/dashboard/ChartCard";
 
 // Generate sample data
@@ -18,7 +18,11 @@ export function TradingPerformance() {
       chart={
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
-            {/* Chart implementation */}
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="value" stroke="#8884d8" />
           </LineChart>
         </ResponsiveContainer>
       }
