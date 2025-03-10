@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { query } from '@/lib/chatbot';
+import ReactMarkdown from 'react-markdown';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -195,7 +196,13 @@ export function FloatingChatbot() {
                 : "bg-muted"
             )}
           >
-            {message.content}
+            {message.role === 'user' ? (
+              message.content
+            ) : (
+              <ReactMarkdown className="prose prose-sm dark:prose-invert max-w-none">
+                {message.content}
+              </ReactMarkdown>
+            )}
           </div>
         ))}
       </div>
