@@ -39,7 +39,7 @@ export function SidebarWrapper({ children }: { children: React.ReactNode }) {
         <KcSidebar />
         <div className="flex flex-col">
           <div className="p-4 lg:hidden">
-            <SidebarTrigger asChild>
+            <SidebarTrigger>
               <Button variant="outline" size="icon" className="lg:hidden">
                 <Menu className="h-5 w-5" />
               </Button>
