@@ -2,7 +2,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Shield, UserCircle, Users } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,11 +12,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+export type UserRole = 
+  | "Marketing"
+  | "Operations"
+  | "Financial"
+  | "Executive"
+  | "Administrator"
+  | "Customer Support"
+  | "IT Development"
+  | "Compliance";
+
 export type User = {
   id: string;
   name: string;
   email: string;
-  role: string;
+  role: UserRole;
+  department: string;
   status: "Active" | "Inactive";
   lastActive: string;
 }
@@ -33,6 +44,21 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "role",
     header: "Role",
+    cell: ({ row }) => {
+      const role = row.getValue("role") as UserRole;
+      return (
+        <div className="flex items-center gap-2">
+          {role === "Administrator" ? <Shield className="h-4 w-4 text-red-500" /> :
+           role === "Executive" ? <UserCircle className="h-4 w-4 text-purple-500" /> :
+           <Users className="h-4 w-4 text-blue-500" />}
+          <span>{role}</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "department",
+    header: "Department",
   },
   {
     accessorKey: "status",
