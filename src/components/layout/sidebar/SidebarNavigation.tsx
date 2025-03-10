@@ -42,50 +42,6 @@ export function NavigationItems({ isActive }: SidebarNavigationProps) {
       <SidebarMenuItem>
         <SidebarMenuButton 
           asChild 
-          isActive={isActive("/trades")}
-        >
-          <Link to="/trades" className="flex items-center gap-2">
-            <Repeat className="h-5 w-5" /> 
-            <span>Trades</span>
-          </Link>
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-      <SidebarMenuItem>
-        <SidebarMenuButton 
-          asChild 
-          isActive={isActive("/documents")}
-        >
-          <Link to="/documents" className="flex items-center gap-2">
-            <FileText className="h-5 w-5" /> 
-            <span>Documents</span>
-          </Link>
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-      <SidebarMenuItem>
-        <SidebarMenuButton 
-          asChild 
-          isActive={isActive("/analytics")}
-        >
-          <Link to="/analytics" className="flex items-center gap-2">
-            <BarChartBig className="h-5 w-5" /> 
-            <span>Analytics</span>
-          </Link>
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-      <SidebarMenuItem>
-        <SidebarMenuButton 
-          asChild 
-          isActive={isActive("/knowledge-base")}
-        >
-          <Link to="/knowledge-base" className="flex items-center gap-2">
-            <Book className="h-5 w-5" /> 
-            <span>Knowledge Base</span>
-          </Link>
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-      <SidebarMenuItem>
-        <SidebarMenuButton 
-          asChild 
           isActive={isActive("/bunkering")}
         >
           <Link to="/bunkering" className="flex items-center gap-2">
@@ -124,6 +80,50 @@ export function NavigationItems({ isActive }: SidebarNavigationProps) {
           <Link to="/supplier-relationship" className="flex items-center gap-2">
             <Handshake className="h-5 w-5" /> 
             <span>Supplier Relationship AI</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton 
+          asChild 
+          isActive={isActive("/trades")}
+        >
+          <Link to="/trades" className="flex items-center gap-2">
+            <Repeat className="h-5 w-5" /> 
+            <span>Trades</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton 
+          asChild 
+          isActive={isActive("/documents")}
+        >
+          <Link to="/documents" className="flex items-center gap-2">
+            <FileText className="h-5 w-5" /> 
+            <span>Documents</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton 
+          asChild 
+          isActive={isActive("/analytics")}
+        >
+          <Link to="/analytics" className="flex items-center gap-2">
+            <BarChartBig className="h-5 w-5" /> 
+            <span>Analytics</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton 
+          asChild 
+          isActive={isActive("/knowledge-base")}
+        >
+          <Link to="/knowledge-base" className="flex items-center gap-2">
+            <Book className="h-5 w-5" /> 
+            <span>Knowledge Base</span>
           </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
