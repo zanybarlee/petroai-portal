@@ -11,7 +11,10 @@ interface ChatMessageProps {
 
 export function ChatMessage({ message }: ChatMessageProps) {
   return (
-    <div className="flex items-start gap-3">
+    <div className={cn(
+      "flex items-start gap-3",
+      message.role === 'user' ? "flex-row-reverse" : "flex-row"
+    )}>
       <Avatar className={cn(
         "h-8 w-8",
         message.role === 'user' 
@@ -29,8 +32,8 @@ export function ChatMessage({ message }: ChatMessageProps) {
         className={cn(
           "max-w-[80%] rounded-lg p-3",
           message.role === 'user'
-            ? "bg-primary text-primary-foreground"
-            : "bg-muted"
+            ? "bg-primary text-primary-foreground rounded-tr-none"
+            : "bg-muted rounded-tl-none"
         )}
       >
         {message.role === 'user' ? (
