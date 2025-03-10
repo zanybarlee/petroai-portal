@@ -19,3 +19,17 @@ export type VoicebotState = {
   isDetached: boolean;
   position: ChatPosition;
 };
+
+export type ChatbotState = {
+  isOpen: boolean;
+  isDetached: boolean;
+  position: ChatPosition;
+  messages: Message[];
+  inputValue: string;
+  isLoading: boolean;
+};
+
+export type DraggableState = {
+  isDragging: boolean;
+  dragStart: ChatPosition;
+};
