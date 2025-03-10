@@ -8,4 +8,3 @@ export type ChatPosition = {
   x: number;
   y: number;
 };
-

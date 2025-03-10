@@ -1,6 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { KeyboardEvent } from 'react';
 
 interface ChatInputProps {
   value: string;
@@ -11,7 +12,18 @@ interface ChatInputProps {
 export function ChatInput({ value, onChange, onSend }: ChatInputProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSend();
+    if (value.trim()) {
+      onSend();
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (value.trim()) {
+        onSend();
+      }
+    }
   };
 
   return (
@@ -20,11 +32,12 @@ export function ChatInput({ value, onChange, onSend }: ChatInputProps) {
         <Textarea
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Type your message..."
           className="min-h-[40px] resize-none"
           rows={1}
         />
-        <Button type="submit">Send</Button>
+        <Button type="submit" disabled={!value.trim()}>Send</Button>
       </form>
     </div>
   );
