@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
+import { query } from '@/lib/chatbot';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -20,7 +21,7 @@ export function FloatingChatbot() {
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
-    const userMessage = { role: 'user', content: inputValue };
+    const userMessage: Message = { role: 'user', content: inputValue };
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
 
@@ -30,7 +31,10 @@ export function FloatingChatbot() {
         overrideConfig: { sessionId: 'role' }
       });
 
-      const assistantMessage = { role: 'assistant', content: response.text || 'No response' };
+      const assistantMessage: Message = { 
+        role: 'assistant', 
+        content: response.text || 'No response' 
+      };
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
