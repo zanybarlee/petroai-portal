@@ -2,9 +2,10 @@
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { forwardRef, HTMLAttributes } from "react";
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 
-export interface DashboardCardProps extends HTMLAttributes<HTMLDivElement> {
+// Omit the title property from HTMLAttributes to avoid type conflict
+export interface DashboardCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: React.ReactNode;
   description?: React.ReactNode;
   footer?: React.ReactNode;
@@ -15,6 +16,9 @@ export interface DashboardCardProps extends HTMLAttributes<HTMLDivElement> {
 
 export const DashboardCard = forwardRef<HTMLDivElement, DashboardCardProps>(
   ({ className, title, description, footer, children, isCompact, isGlass, decorationColor, ...props }, ref) => {
+    // Remove any HTML motion props that might cause conflicts
+    const { onDrag, ...restProps } = props;
+    
     return (
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -24,7 +28,7 @@ export const DashboardCard = forwardRef<HTMLDivElement, DashboardCardProps>(
         whileTap={{ scale: 0.995 }}
         className={cn("relative overflow-hidden", className)}
         ref={ref}
-        {...props}
+        {...restProps}
       >
         <Card 
           className={cn(

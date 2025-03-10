@@ -74,7 +74,7 @@ function KcSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   asChild 
-                  active={isActive("/dashboard")}
+                  isActive={isActive("/dashboard")}
                 >
                   <Link to="/dashboard" className="flex items-center gap-2">
                     <Home className="h-5 w-5" /> 
@@ -85,7 +85,7 @@ function KcSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   asChild 
-                  active={isActive("/trades")}
+                  isActive={isActive("/trades")}
                 >
                   <Link to="/trades" className="flex items-center gap-2">
                     <Repeat className="h-5 w-5" /> 
@@ -96,7 +96,7 @@ function KcSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   asChild 
-                  active={isActive("/documents")}
+                  isActive={isActive("/documents")}
                 >
                   <Link to="/documents" className="flex items-center gap-2">
                     <FileText className="h-5 w-5" /> 
@@ -107,7 +107,7 @@ function KcSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   asChild 
-                  active={isActive("/analytics")}
+                  isActive={isActive("/analytics")}
                 >
                   <Link to="/analytics" className="flex items-center gap-2">
                     <BarChartBig className="h-5 w-5" /> 
@@ -118,7 +118,7 @@ function KcSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   asChild 
-                  active={isActive("/knowledge-base")}
+                  isActive={isActive("/knowledge-base")}
                 >
                   <Link to="/knowledge-base" className="flex items-center gap-2">
                     <Book className="h-5 w-5" /> 
@@ -137,7 +137,7 @@ function KcSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   asChild 
-                  active={isActive("/users")}
+                  isActive={isActive("/users")}
                 >
                   <Link to="/users" className="flex items-center gap-2">
                     <Users className="h-5 w-5" /> 
@@ -148,7 +148,7 @@ function KcSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   asChild 
-                  active={isActive("/settings")}
+                  isActive={isActive("/settings")}
                 >
                   <Link to="/settings" className="flex items-center gap-2">
                     <Settings className="h-5 w-5" /> 
