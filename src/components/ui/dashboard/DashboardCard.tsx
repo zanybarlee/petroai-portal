@@ -5,10 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { forwardRef, HTMLAttributes } from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
 
-// Create a type that excludes drag and motion-specific event handlers
+// Create a type that excludes drag and motion-specific event handlers and title
 type DivElementProps = Omit<
   HTMLAttributes<HTMLDivElement>, 
-  'onDrag' | 'onDragEnd' | 'onDragStart' | 'onDragEnter' | 'onDragLeave' | 'onDragOver' | 'onDragExit'
+  'onDrag' | 'onDragEnd' | 'onDragStart' | 'onDragEnter' | 'onDragLeave' | 'onDragOver' | 'onDragExit' | 'title'
 >;
 
 // Define our component props
